@@ -1,7 +1,7 @@
 {
   "version": 3,
   "sources": ["../../../../../../Users/ryanpeden/projects/cockroachdb-typescript/netlify/functions/getPlayers.ts"],
-  "sourceRoot": "/var/folders/t0/2yb54hnx75n0lxdrp31c0jjh0000gn/T/tmp-34826-PHBObUf5MDiU",
+  "sourceRoot": "/var/folders/t0/2yb54hnx75n0lxdrp31c0jjh0000gn/T/tmp-34826-aeenLzJZ7qOS",
   "sourcesContent": ["import { Handler } from '@netlify/functions'\n\nconst handler: Handler = async (event, context) => {\n  return {\n    statusCode: 200,\n    body: JSON.stringify({ id: 1, name: \"Test Player\", email: \"test@test.com\"})\n  }\n}\n\nexport { handler }"],
   "mappings": ";;;;;;;;;AAAA;AAAA;AAAA;AAEA,IAAM,UAAmB,OAAO,OAAO,YAAY;AACjD,SAAO;AAAA,IACL,YAAY;AAAA,IACZ,MAAM,KAAK,UAAU,EAAE,IAAI,GAAG,MAAM,eAAe,OAAO;AAAA;AAAA;",
   "names": []
