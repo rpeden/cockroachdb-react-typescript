@@ -13,7 +13,7 @@ __export(exports, {
 var handler = async (event, context) => {
   return {
     statusCode: 200,
-    body: JSON.stringify({ message: "Hello World" })
+    body: JSON.stringify({ id: 1, name: "Test Player", email: "test@test.com" })
   };
 };
 // Annotate the CommonJS export names for ESM import in node:
