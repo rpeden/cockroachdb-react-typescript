@@ -20,6 +20,7 @@ function renderLeader(leader: Leader) {
 }
 
 export default function Leaderboard() {
+    // eslint-disable-next-line
     const [leaders, setLeaders] = useState(tempLeaders);
 
     return <>

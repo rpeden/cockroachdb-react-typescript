@@ -6,6 +6,7 @@ let tempPlayers = [
     { id: 3, name: "Fred",}
 ]
 export default function Admin() {
+    // esline-disable-next-line
     const [players, setPlayers] = useState(tempPlayers);
     const [selectedPlayerId, setSelectedPlayerId] = useState("1");
     const [score, setScore] = useState("");
