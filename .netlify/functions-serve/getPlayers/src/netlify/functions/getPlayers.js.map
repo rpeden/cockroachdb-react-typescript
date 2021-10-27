@@ -1,8 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../../../../Users/ryanpeden/projects/cockroachdb-typescript/netlify/functions/getPlayers.ts"],
-  "sourceRoot": "/var/folders/t0/2yb54hnx75n0lxdrp31c0jjh0000gn/T/tmp-41057-tHhpL9E9PDQK",
-  "sourcesContent": ["import { Handler } from '@netlify/functions'\nimport { PrismaClient } from '@prisma/client'\n\nconst prisma = new PrismaClient();\n\nconst handler: Handler = async (event, context) => {\n  // load all players from the database\n  const allPlayers = await prisma.players.findMany();\n  return {\n    statusCode: 200,\n    body: JSON.stringify(allPlayers, (key, value) =>\n      // need to add a custom serializer because CockroachDB IDs map to\n      // JavaScript BigInts, which JSON.stringify has trouble serializing.\n      typeof value === 'bigint'\n          ? value.toString()\n          : value \n      )\n  }\n}\n\nexport { handler }"],
-  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AACA,oBAA6B;AAE7B,IAAM,SAAS,IAAI;AAEnB,IAAM,UAAmB,OAAO,OAAO,YAAY;AAEjD,QAAM,aAAa,MAAM,OAAO,QAAQ;AACxC,SAAO;AAAA,IACL,YAAY;AAAA,IACZ,MAAM,KAAK,UAAU,YAAY,CAAC,KAAK,UAGrC,OAAO,UAAU,WACX,MAAM,aACN;AAAA;AAAA;",
-  "names": []
-}
