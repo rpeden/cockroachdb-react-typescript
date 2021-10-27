@@ -1,27 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 interface Leader {
+    id: number,
     name: string,
     score: number
 }
 
-let tempLeaders = [
-    { name: "Ted555", score: 150},
-    { name: "Bob021", score: 25},
-    { name: "Fred033", score: 100},
-    { name: "Tom", score: 200}
-]
+
 
 function renderLeader(leader: Leader) {
-    return <tr>
+    return <tr key={leader.id}>
         <td>{leader.name}</td>
         <td>{leader.score}</td>
     </tr>
 }
 
 export default function Leaderboard() {
-    // eslint-disable-next-line
-    const [leaders, setLeaders] = useState(tempLeaders);
+
+    const [leaders, setLeaders] = useState([] as Leader[]);
+
+    useEffect(() => {
+        fetch('/.netlify/functions/getScores')
+            .then(response => response.json() as Promise<Leader[]>)
+            .then(data => setLeaders(data));
+    }, []);
 
     return <>
         <h2>Leaderboard</h2>

@@ -1,9 +1,20 @@
 import { Handler } from '@netlify/functions'
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient();
 
 const handler: Handler = async (event, context) => {
+  // load all players from the database
+  const allPlayers = await prisma.players.findMany();
   return {
     statusCode: 200,
-    body: JSON.stringify({ id: 1, name: "Test Player", email: "test@test.com"})
+    body: JSON.stringify(allPlayers, (key, value) =>
+      // need to add a custom serializer because CockroachDB IDs map to
+      // JavaScript BigInts, which JSON.stringify has trouble serializing.
+      typeof value === 'bigint'
+          ? value.toString()
+          : value 
+      )
   }
 }
 
