@@ -8,7 +8,7 @@ interface ScoreEntry {
   score: string
 }
 
-const handler: Handler = async (event, context) => {
+const handler: Handler = async (event, _context) => {
   if(event.body) {
     const newScore = JSON.parse(event.body) as ScoreEntry;
     await prisma.player_scores.create({

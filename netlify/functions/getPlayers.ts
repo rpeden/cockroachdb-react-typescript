@@ -3,12 +3,12 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient();
 
-const handler: Handler = async (event, context) => {
+const handler: Handler = async (_event, _context) => {
   // load all players from the database
   const allPlayers = await prisma.players.findMany();
   return {
     statusCode: 200,
-    body: JSON.stringify(allPlayers, (key, value) =>
+    body: JSON.stringify(allPlayers, (_key, value) =>
       // need to add a custom serializer because CockroachDB IDs map to
       // JavaScript BigInts, which JSON.stringify has trouble serializing.
       typeof value === 'bigint'
