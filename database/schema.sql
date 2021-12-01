@@ -1,7 +1,6 @@
-DROP INDEX IF EXISTS player_scores_player_id;
-DROP INDEX IF EXISTS player_scores_score;
-DROP TABLE IF EXISTS player_scores;
-DROP TABLE IF EXISTS players;
+DROP DATABASE IF EXISTS leaderboard;
+CREATE DATABASE leaderboard;
+USE leaderboard;
 
 CREATE TABLE players (
     id SERIAL PRIMARY KEY,
