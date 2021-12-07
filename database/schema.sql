@@ -3,15 +3,17 @@ CREATE DATABASE leaderboard;
 USE leaderboard;
 
 CREATE TABLE players (
-    id SERIAL PRIMARY KEY,
+    id SERIAL,
     name TEXT NOT NULL,
-    email TEXT NOT NULL
+    email TEXT NOT NULL,
+    CONSTRAINT "players_pkey" PRIMARY KEY (id ASC)
 );
 
 CREATE TABLE player_scores (
-    id SERIAL PRIMARY KEY,
+    id SERIAL,
     player_id INTEGER NOT NULL,
     score INTEGER NOT NULL,
+    CONSTRAINT "player_scores_pkey" PRIMARY KEY (id asc),
     CONSTRAINT fk_player FOREIGN KEY (player_id) REFERENCES players(id)
 );
 
