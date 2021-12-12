@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 
 interface Leader {
     id: number,
     name: string,
     score: number
 }
-
-
 
 function renderLeader(leader: Leader) {
     return <tr key={leader.id}>
@@ -28,7 +27,7 @@ export default function Leaderboard() {
     return <>
         <h2>Leaderboard</h2>
         {leaders.length === 0 ? 
-            <div>Loading leader scores...</div>
+            <div>No leader scores to display. Would you like to <Link to="admin">add one</Link>?</div>
         :
             <table className="table leader-table">
                 <thead>

@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
+  Routes,
   Route,
   Link
 } from "react-router-dom";
@@ -33,14 +33,10 @@ function App() {
       </nav>
 
       <div className="container page-content">
-        <Switch>
-          <Route path="/admin">
-            <Admin />
-          </Route>
-          <Route path="/">
-            <Leaderboard />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/" element={<Leaderboard />} />
+        </Routes>
       </div>
     </Router>
   );

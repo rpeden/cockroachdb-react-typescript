@@ -1,32 +1,37 @@
 import React, {useEffect, useState} from 'react';
 
 interface Player {
-    id: number,
+    id: string,
     name: string,
-    email: string
 }
 
 export default function Admin() {
-    // eslint-disable-next-line
     const [players, setPlayers] = useState([] as Player[]);
-    const [selectedPlayerId, setSelectedPlayerId] = useState("1");
     const [score, setScore] = useState("");
     const [message, setMessage] = useState("");
-
+    const [selectedPlayer, setSelectedPlayer] = useState<Player | undefined>(undefined);
+    
     useEffect(() => {
         fetch('/.netlify/functions/getPlayers')
             .then(response => response.json() as Promise<Player[]>)
             .then(data => {
                 setPlayers(data);
                 if(data && data.length > 0) {
-                    setSelectedPlayerId(data[0].id.toString())
+                    setSelectedPlayer(data[0]);
                 }
             });
     }, []);
 
-    function addScore() {
+    const selectPlayer = (players: HTMLSelectElement) => {
+        setSelectedPlayer({
+            id: players.value,
+            name: players.options[players.selectedIndex].text
+        });
+    }
+
+    const addScore = () => {
         const scoreEntry = {
-            playerId: selectedPlayerId,
+            playerId: selectedPlayer?.id,
             score: score
         }
 
@@ -40,10 +45,10 @@ export default function Admin() {
                 body: JSON.stringify(scoreEntry)
             })
             .then(function(res){
-                setMessage(`Leaderboard score added for player ${selectedPlayerId}`);
+                setMessage(`Leaderboard score of ${score} added for player ${selectedPlayer?.name}`);
             })
             .catch(function(res){
-                setMessage(`Unable to add score for player ${selectedPlayerId}`);
+                setMessage(`Unable to add score for player ${selectedPlayer?.name}`);
             })
     }
 
@@ -59,8 +64,8 @@ export default function Admin() {
                 <select
                     className="form-select"
                     aria-label="player selection"
-                    value={selectedPlayerId}
-                    onChange={e => setSelectedPlayerId(e.target.value)}>
+                    value={selectedPlayer?.id}
+                    onChange={e => selectPlayer(e.target)}>
                     {players.map(p => <option key={p.id} value={p.id}>
                         {p.name}
                     </option>)}
